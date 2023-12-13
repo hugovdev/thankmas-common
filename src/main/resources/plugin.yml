@@ -1,4 +1,0 @@
-name: TranslationsTest
-version: '1.0'
-main: me.hugo.translationstest.TranslationsTest
-api-version: '1.20'
