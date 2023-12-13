@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     compileOnly("net.kyori:adventure-api:4.14.0")
+    compileOnly("net.kyori:adventure-text-minimessage:4.14.0")
 
     implementation("io.insert-koin:koin-core:3.5.0")
     implementation("io.insert-koin:koin-annotations:1.3.0")
