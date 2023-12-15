@@ -8,15 +8,18 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import java.io.File
 import java.util.*
 
-public class ThankmasPlugin(translationFolder: File) {
+/**
+ * Class that initializes translations for this server/plugin.
+ */
+public class DefaultTranslations(translationFolder: File) {
 
     public companion object {
-        public lateinit var instance: ThankmasPlugin
+        public lateinit var instance: DefaultTranslations
     }
 
     // Create a MiniPhrase translations instance for this ThankmasPlugin!
     public val translations: MiniPhrase = MiniPhrase.configureAndBuild {
-        translationRegistry(PropertiesFileTranslationRegistry(translationFolder))
+        translationRegistry(PropertiesFileTranslationRegistry(translationFolder, true))
         defaultLocale(Locale.ENGLISH)
         miniMessage(MiniMessage.builder()
             .editTags { resolver -> resolver.resolver(TagResolver.resolver("small_caps", Alphabet::convert)) }
