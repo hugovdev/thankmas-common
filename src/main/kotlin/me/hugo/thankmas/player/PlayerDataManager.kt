@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentMap
  * Offers a way to save custom player data classes and
  * provides functions to fetch it, change it and remove it.
  */
-public class PlayerDataManager<T : PlayerData> {
+public class PlayerDataManager<T : PlayerData>(private val dataSupplier: (playerUUID: UUID) -> T) {
 
     private val playerData: ConcurrentMap<UUID, T> = ConcurrentHashMap()
 
@@ -25,9 +25,9 @@ public class PlayerDataManager<T : PlayerData> {
         return playerData[uuid]
     }
 
-    /** Sets the player data for [uuid] to [data]. */
-    public fun setPlayerData(uuid: UUID, data: T) {
-        playerData[uuid] = data
+    /** Create player data for [uuid] if non-existent. */
+    public fun createPlayerData(uuid: UUID): T {
+        return playerData.computeIfAbsent(uuid) { dataSupplier(uuid) }
     }
 
     /** @returns whether data for [uuid] is currently saved. */
