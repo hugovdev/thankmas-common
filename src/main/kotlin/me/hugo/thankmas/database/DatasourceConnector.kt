@@ -5,7 +5,7 @@ import com.zaxxer.hikari.HikariDataSource
 import java.sql.Connection
 import java.util.*
 
-public open class DatasourceManager(
+public open class DatasourceConnector(
     private val ip: String,
     private val port: String,
     private val schema: String,
