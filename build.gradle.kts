@@ -24,6 +24,7 @@ dependencies {
 
     implementation("io.insert-koin:koin-core:3.5.0")
     implementation("io.insert-koin:koin-annotations:1.3.0")
+    implementation("com.zaxxer:HikariCP:5.1.0")
     ksp("io.insert-koin:koin-ksp-compiler:1.3.0")
 
     implementation(files("libs/miniphrase-core-1.0.0-SNAPSHOT.jar"))
