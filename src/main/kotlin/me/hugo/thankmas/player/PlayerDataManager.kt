@@ -37,4 +37,9 @@ public class PlayerDataManager<T : PlayerData>(private val dataSupplier: (player
     public fun removePlayerData(uuid: UUID): T? {
         return playerData.remove(uuid)
     }
+
+    /** @returns all the registered player data. */
+    public fun getAllPlayerData(): Collection<T> {
+        return playerData.values
+    }
 }

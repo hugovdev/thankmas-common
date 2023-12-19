@@ -20,7 +20,7 @@ public class DefaultTranslations(translationFolder: File) {
     // Create a MiniPhrase translations instance for this ThankmasPlugin!
     public val translations: MiniPhrase = MiniPhrase.configureAndBuild {
         translationRegistry(PropertiesFileTranslationRegistry(translationFolder, fetchFromResources = true))
-        defaultLocale(Locale.ENGLISH)
+        defaultLocale(Locale.US)
         miniMessage(MiniMessage.builder()
             .editTags { resolver -> resolver.resolver(TagResolver.resolver("small_caps", Alphabet::convert)) }
             .build())
