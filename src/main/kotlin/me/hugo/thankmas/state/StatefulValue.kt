@@ -13,9 +13,10 @@ public class StatefulValue<T>(initialValue: T) {
         set(newValue) {
             if (newValue == value) return
 
-            subscribers.forEach { it(field, newValue, this) }
-
+            val oldValue = field
             field = newValue
+
+            subscribers.forEach { it(oldValue, newValue, this) }
         }
 
     public fun subscribe(listener: (old: T, new: T, value: StatefulValue<T>) -> Unit) {
