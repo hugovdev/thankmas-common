@@ -11,7 +11,7 @@ import java.util.*
 /**
  * Class that initializes translations for this server/plugin.
  */
-public class DefaultTranslations(translationFolder: File) {
+public class DefaultTranslations(translationFolder: File, miniMessage: MiniMessage.Builder? = null) {
 
     public companion object {
         public lateinit var instance: DefaultTranslations
@@ -21,7 +21,7 @@ public class DefaultTranslations(translationFolder: File) {
     public val translations: MiniPhrase = MiniPhrase.configureAndBuild {
         translationRegistry(PropertiesFileTranslationRegistry(translationFolder, fetchFromResources = true))
         defaultLocale(Locale.US)
-        miniMessage(MiniMessage.builder()
+        miniMessage((miniMessage ?: MiniMessage.builder())
             .editTags { resolver -> resolver.resolver(TagResolver.resolver("small_caps", Alphabet::convert)) }
             .build())
     }
