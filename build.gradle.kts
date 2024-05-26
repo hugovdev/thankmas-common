@@ -19,13 +19,13 @@ repositories {
 }
 
 dependencies {
-    compileOnly("net.kyori:adventure-api:4.16.0")
+    compileOnly("net.kyori:adventure-api:4.17.0")
     compileOnly("net.kyori:adventure-text-minimessage:4.16.0")
 
     implementation("io.insert-koin:koin-core:3.5.0")
-    implementation("io.insert-koin:koin-annotations:1.3.0")
+    implementation("io.insert-koin:koin-annotations:1.3.1")
     implementation("com.zaxxer:HikariCP:5.1.0")
-    ksp("io.insert-koin:koin-ksp-compiler:1.3.0")
+    ksp("io.insert-koin:koin-ksp-compiler:1.3.1")
 
     implementation(files("libs/miniphrase-core-1.0.0-SNAPSHOT.jar"))
 }
