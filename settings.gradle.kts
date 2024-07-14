@@ -1,2 +1,2 @@
-rootProject.name = "Thankmas"
+rootProject.name = "ThankmasBase"
 

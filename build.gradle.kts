@@ -22,7 +22,7 @@ dependencies {
     compileOnly("net.kyori:adventure-api:4.17.0")
     compileOnly("net.kyori:adventure-text-minimessage:4.16.0")
 
-    implementation("io.insert-koin:koin-core:3.5.0")
+    implementation("io.insert-koin:koin-core:3.5.6")
     implementation("io.insert-koin:koin-annotations:1.3.1")
     implementation("com.zaxxer:HikariCP:5.1.0")
     ksp("io.insert-koin:koin-ksp-compiler:1.3.1")
