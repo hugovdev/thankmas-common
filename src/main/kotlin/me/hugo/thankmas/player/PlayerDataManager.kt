@@ -1,8 +1,10 @@
 package me.hugo.thankmas.player
 
+import com.github.benmanes.caffeine.cache.Caffeine
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
+import java.util.concurrent.TimeUnit
 
 /**
  * Offers a way to save custom player data classes and
@@ -10,7 +12,16 @@ import java.util.concurrent.ConcurrentMap
  */
 public class PlayerDataManager<T : PlayerData>(private val dataSupplier: (playerUUID: UUID) -> T) {
 
-    private val playerData: ConcurrentMap<UUID, T> = ConcurrentHashMap()
+    /**
+     * Cache that contains the player data from every player
+     * that connected in the last minute.
+     */
+    private val loginCache = Caffeine.newBuilder()
+        .expireAfterAccess(1, TimeUnit.MINUTES)
+        .build<UUID, T>()
+
+    /** Contains the player data for every player who is online. */
+    private val sessionPlayerData: ConcurrentMap<UUID, T> = ConcurrentHashMap()
 
     /** Gets the player data for [uuid]. */
     public fun getPlayerData(uuid: UUID): T {
@@ -22,24 +33,30 @@ public class PlayerDataManager<T : PlayerData>(private val dataSupplier: (player
 
     /** Gets the player data for [uuid], can be null. */
     public fun getPlayerDataOrNull(uuid: UUID): T? {
-        return playerData[uuid]
+        return sessionPlayerData[uuid]
     }
 
     /** Create player data for [uuid] if non-existent. */
     public fun createPlayerData(uuid: UUID): T {
-        return playerData.computeIfAbsent(uuid) { dataSupplier(uuid) }
+        return dataSupplier(uuid).also { loginCache.put(uuid, it) }
+    }
+
+    /** Registers the player data in persistent server storage. */
+    public fun registerPlayerData(uuid: UUID) {
+        sessionPlayerData[uuid] = requireNotNull(loginCache.getIfPresent(uuid))
+        { "Tried to register $uuid's player data but found nothing in login cache!" }
     }
 
     /** @returns whether data for [uuid] is currently saved. */
-    public fun hasPlayerDaya(uuid: UUID): Boolean = playerData.containsKey(uuid)
+    public fun hasPlayerDaya(uuid: UUID): Boolean = sessionPlayerData.containsKey(uuid)
 
     /** Removes [uuid]'s player data. */
     public fun removePlayerData(uuid: UUID): T? {
-        return playerData.remove(uuid)
+        return sessionPlayerData.remove(uuid)
     }
 
     /** @returns all the registered player data. */
     public fun getAllPlayerData(): Collection<T> {
-        return playerData.values
+        return sessionPlayerData.values.toSet()
     }
 }

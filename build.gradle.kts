@@ -7,6 +7,7 @@ dependencies {
 
     api(libs.bundles.koin)
     api(libs.hikariCP)
+    api(libs.caffeine)
 
     ksp(libs.koin.ksp.compiler)
 
