@@ -42,9 +42,13 @@ public class PlayerDataManager<T : PlayerData>(private val dataSupplier: (player
     }
 
     /** Registers the player data in persistent server storage. */
-    public fun registerPlayerData(uuid: UUID) {
-        sessionPlayerData[uuid] = requireNotNull(loginCache.getIfPresent(uuid))
+    public fun registerPlayerData(uuid: UUID): T {
+        val playerData = requireNotNull(loginCache.getIfPresent(uuid))
         { "Tried to register $uuid's player data but found nothing in login cache!" }
+
+        sessionPlayerData[uuid] = playerData
+
+        return playerData
     }
 
     /** @returns whether data for [uuid] is currently saved. */
