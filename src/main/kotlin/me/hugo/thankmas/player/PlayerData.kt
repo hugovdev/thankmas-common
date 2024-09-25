@@ -4,7 +4,10 @@ import java.util.*
 import kotlin.time.Duration
 
 /** Base player data class with a simple cooldown system. */
-public open class PlayerData(protected val playerUUID: UUID) {
+public open class PlayerData<P: PlayerData<P>>(
+    protected val playerUUID: UUID,
+    protected val playerDataManager: PlayerDataManager<P>
+) {
 
     /** Map that contains the timestamp of when each cooldown ends. */
     private val activeCooldowns: MutableMap<String, Long> = mutableMapOf()
