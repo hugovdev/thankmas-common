@@ -1,5 +1,6 @@
 package me.hugo.thankmas.player
 
+import me.hugo.thankmas.lang.TranslatedComponent
 import java.util.*
 import kotlin.time.Duration
 
@@ -7,7 +8,7 @@ import kotlin.time.Duration
 public open class PlayerData<P: PlayerData<P>>(
     protected val playerUUID: UUID,
     protected val playerDataManager: PlayerDataManager<P>
-) {
+) : TranslatedComponent {
 
     /** Map that contains the timestamp of when each cooldown ends. */
     private val activeCooldowns: MutableMap<String, Long> = mutableMapOf()
