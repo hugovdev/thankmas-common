@@ -13,7 +13,7 @@ public open class MapBasedRegistry<K, V> {
     private val registry: ConcurrentMap<K, V> = ConcurrentHashMap()
 
     /** Registers [value] on [key]. */
-    public fun register(key: K, value: V, replace: Boolean = true) {
+    public open fun register(key: K, value: V, replace: Boolean = true) {
         if (registry.containsKey(key) && !replace) return
 
         registry[key] = value
