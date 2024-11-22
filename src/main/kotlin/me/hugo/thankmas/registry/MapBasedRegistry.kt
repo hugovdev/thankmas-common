@@ -52,4 +52,8 @@ public open class MapBasedRegistry<K, V> {
         return registry.size
     }
 
+    public fun iterator(): MutableIterator<MutableMap.MutableEntry<K, V>> {
+        return registry.iterator()
+    }
+
 }
