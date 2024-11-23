@@ -6,7 +6,7 @@ import kotlin.time.Duration
 
 /** Base player data class with a simple cooldown system. */
 public open class PlayerData<P: PlayerData<P>>(
-    protected val playerUUID: UUID,
+    public val playerUUID: UUID,
     protected val playerDataManager: PlayerDataManager<P>
 ) : TranslatedComponent {
 
